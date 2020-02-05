@@ -101,10 +101,14 @@
     <option name="LAST_COMMIT_MESSAGE" value="initial commit" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="-5" y="43" width="1885" height="941" key="CommitChangelistDialog2" timestamp="1580917102543">
+    <state x="-5" y="43" width="1885" height="941" key="CommitChangelistDialog2" timestamp="1580917195033">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="-5" y="43" width="1885" height="941" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1580917102543" />
+    <state x="-5" y="43" width="1885" height="941" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1580917195033" />
+    <state x="161" y="69" key="DiffContextDialog" timestamp="1580917193024">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="161" y="69" key="DiffContextDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1580917193024" />
     <state x="740" y="282" key="FileChooserDialogImpl" timestamp="1580916820733">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -121,5 +125,9 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="552" y="274" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1580916995862" />
+    <state x="769" y="458" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1580917234524">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="769" y="458" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1080@0.0.1920.1080" timestamp="1580917234524" />
   </component>
 </project>
