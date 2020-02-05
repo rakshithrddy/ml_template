@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bcfd6d93-aa86-4f34-b37d-f5257cbea65c" name="Default Changelist" comment="">
+    <list default="true" id="bcfd6d93-aa86-4f34-b37d-f5257cbea65c" name="Default Changelist" comment="initial commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/train.py" afterDir="false" />
     </list>
@@ -24,6 +24,13 @@
       </list>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="hiddenUrls">
+      <set>
+        <option value="https://github.com/rakshithrddy/ml_template.git" />
+      </set>
+    </option>
   </component>
   <component name="ProjectId" id="1XOSLBPM4lwKycply9sX7jHt7z3" />
   <component name="ProjectLevelVcsManager">
@@ -67,7 +74,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1580915589298</updated>
-      <workItem from="1580915597246" duration="1539000" />
+      <workItem from="1580915597246" duration="1693000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <created>1580916614397</created>
@@ -90,7 +97,21 @@
       <option name="project" value="LOCAL" />
       <updated>1580917103512</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="initial commit">
+      <created>1580917195960</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1580917195960</updated>
+    </task>
+    <task id="LOCAL-00005" summary="initial commit">
+      <created>1580917252003</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1580917252003</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -101,10 +122,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="initial commit" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="-5" y="43" width="1885" height="941" key="CommitChangelistDialog2" timestamp="1580917195033">
+    <state x="-5" y="43" width="1885" height="941" key="CommitChangelistDialog2" timestamp="1580917269386">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="-5" y="43" width="1885" height="941" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1580917195033" />
+    <state x="-5" y="43" width="1885" height="941" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1580917269386" />
     <state x="161" y="69" key="DiffContextDialog" timestamp="1580917193024">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
