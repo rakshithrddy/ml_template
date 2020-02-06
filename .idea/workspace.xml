@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bcfd6d93-aa86-4f34-b37d-f5257cbea65c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/cross_validation.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cross_validation.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cross_validation.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -173,7 +173,7 @@
       <updated>1580915589298</updated>
       <workItem from="1580915597246" duration="5478000" />
       <workItem from="1580921196367" duration="6175000" />
-      <workItem from="1580972254130" duration="17282000" />
+      <workItem from="1580972254130" duration="20850000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <created>1580916614397</created>
@@ -231,7 +231,14 @@
       <option name="project" value="LOCAL" />
       <updated>1580982014464</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="initial commit">
+      <created>1580995780379</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1580995780379</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -242,10 +249,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="initial commit" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="-5" y="43" width="1885" height="941" key="CommitChangelistDialog2" timestamp="1580982012413">
+    <state x="-5" y="43" width="1885" height="941" key="CommitChangelistDialog2" timestamp="1580995779497">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="-5" y="43" width="1885" height="941" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1580982012413" />
+    <state x="-5" y="43" width="1885" height="941" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1580995779497" />
     <state x="161" y="69" key="DiffContextDialog" timestamp="1580917193024">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -258,30 +265,30 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="831" y="434" width="260" height="211" key="Github.ShareDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1580917043763" />
-    <state width="1646" height="209" key="GridCell.Tab.0.bottom" timestamp="1580994588978">
+    <state width="1877" height="317" key="GridCell.Tab.0.bottom" timestamp="1580999303810">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1646" height="209" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1580994588978" />
-    <state width="1646" height="209" key="GridCell.Tab.0.center" timestamp="1580994588977">
+    <state width="1877" height="317" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1580999303810" />
+    <state width="1877" height="317" key="GridCell.Tab.0.center" timestamp="1580999303810">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1646" height="209" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1580994588977" />
-    <state width="1646" height="209" key="GridCell.Tab.0.left" timestamp="1580994588977">
+    <state width="1877" height="317" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1580999303810" />
+    <state width="1877" height="317" key="GridCell.Tab.0.left" timestamp="1580999303810">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1646" height="209" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1580994588977" />
-    <state width="1646" height="209" key="GridCell.Tab.0.right" timestamp="1580994588978">
+    <state width="1877" height="317" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1580999303810" />
+    <state width="1877" height="317" key="GridCell.Tab.0.right" timestamp="1580999303810">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1646" height="209" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1580994588978" />
+    <state width="1877" height="317" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1580999303810" />
     <state x="461" y="183" key="SettingsEditor" timestamp="1580925117159">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="461" y="183" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1580925117159" />
-    <state x="552" y="274" key="Vcs.Push.Dialog.v2" timestamp="1580982026762">
+    <state x="552" y="274" key="Vcs.Push.Dialog.v2" timestamp="1580995787947">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="552" y="274" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1580982026762" />
+    <state x="552" y="274" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1580995787947" />
     <state x="769" y="458" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1580917234524">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -293,7 +300,7 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ml_template$train.coverage" NAME="train Coverage Results" MODIFIED="1580972530856" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
-    <SUITE FILE_PATH="coverage/ml_template$cross_validation.coverage" NAME="cross_validation Coverage Results" MODIFIED="1580994588967" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/ml_template$cross_validation.coverage" NAME="cross_validation Coverage Results" MODIFIED="1580999303802" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/ml_template$create_folds.coverage" NAME="create_folds Coverage Results" MODIFIED="1580926944544" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
   </component>
 </project>
