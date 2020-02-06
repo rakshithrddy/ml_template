@@ -6,8 +6,10 @@ if __name__ == "__main__":
     df["kfold"] = -1
 
     df = df.sample(frac=1).reset_index(drop=True)  # Return a random sample of items from an axis of object.
+    print("Total null values are", df.isnull().values.sum())
     if df.isnull().values.sum() > 0:
         df.fillna(method='ffill', inplace=True)
+    print("Total null values after filling using (ffill)", df.isnull().values.sum())
 
     kf = model_selection.StratifiedKFold(n_splits=5, shuffle=False, random_state=42)
 
