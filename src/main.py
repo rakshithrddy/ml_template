@@ -79,8 +79,6 @@ class Main:
                 self.encoding_type = encoder_attributes['encoder_type']
                 self.target_column = encoder_attributes['target']
         self.feature_scaling = feature_scaling
-        self.train_dataframe_encoded = None
-        self.test_dataframe_encoded = None
 
     def data_imputer(self, dataframe):
         try:
@@ -165,8 +163,8 @@ class Main:
             pass
         elif self.data_type == 'categorical':
             print(self.data_type)
-            self.train_dataframe_encoded, self.test_dataframe_encoded = self.categorical_encoder(train_dataframe=self.train_dataframe,
-                                                                                                 test_dataframe=self.test_dataframe)
+            self.train_dataframe, self.test_dataframe = self.categorical_encoder(train_dataframe=self.train_dataframe,
+                                                                                 test_dataframe=self.test_dataframe)
         else:
             raise Exception(f"{self.data_type} not available")
 
