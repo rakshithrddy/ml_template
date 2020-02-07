@@ -86,67 +86,49 @@ class CategoricalFeatures:
             raise Exception("Encoding type not understood")
 
 
-if __name__ == "__main__":
-
-    shuffle = True
-    df = pd.read_csv("C:\\Users\\raksh\\PycharmProjects\\ml_template\\input\\train.csv")
-    df_test = pd.read_csv("C:\\Users\\raksh\\PycharmProjects\\ml_template\\input\\test.csv")
-    sample = pd.read_csv("C:\\Users\\raksh\\PycharmProjects\\ml_template\\input\\sample_submission.csv")
-
+def main(path_train_sample, path_test_sample, encoder_type, shuffle=True):
+    df_train = pd.read_csv(path_train_sample)
+    df_test = pd.read_csv(path_test_sample)
     if shuffle:
-        df = df.sample(frac=1).reset_index(drop=True)
+        df_train = df_train.sample(frac=1).reset_index(drop=True)
         df_test = df_test.sample(frac=1).reset_index(drop=True)
 
-    ############################################ for ohe encoding #################################################
-    # train_len = len(df)
-    # df_test["target"] = -1
-    # full_data = pd.concat([df, df_test])
-    # cols = [c for c in df.columns if c not in ["id", "target"]]   # categorical columns which need encoding
-    # cat_feats = CategoricalFeatures(full_data,
-    #                                 categorical_features=cols,
-    #                                 encoding_type="ohe",
-    #                                 handle_na=True)
-    # full_data_transformed = cat_feats.fit_transform()
-    #
-    # X = full_data_transformed[:train_len, :]
-    # X_test = full_data_transformed[train_len:, :]
+    if encoder_type == 'onehotencoder':
+        train_len = len(df_train)
+        df_test["target"] = -1
+        full_data = pd.concat([df_train, df_test])
+        cols = [c for c in df_train.columns if c not in ["id", "target"]]   # categorical columns which need encoding
+        cat_feats = CategoricalFeatures(full_data,
+                                        categorical_features=cols,
+                                        encoding_type="ohe",
+                                        handle_na=True)
+        full_data_transformed = cat_feats.fit_transform()
+        train_transformed = full_data_transformed[:train_len, :]
+        test_transformed = full_data_transformed[train_len:, :]
+        return train_transformed, test_transformed
 
 
-    ############################################# for label encoding #############################################
+    elif encoder_type == 'labelencoder':
+        train_idx = df_train['id'].values
+        test_idx = df_test['id'].values
+        df_test["target"] = -1
+        full_data = pd.concat([df_train, df_test])
+        cols = [c for c in df_train.columns if c not in ["id", "target"]]
+        cat_feats = CategoricalFeatures(full_data,
+                                        categorical_features=cols,
+                                        encoding_type="label",
+                                        handle_na=True)
+        full_data_transformed = cat_feats.fit_transform()
+        train_transformed = full_data_transformed[full_data_transformed['id'].isin(train_idx)].reset_index(drop=True)
+        test_transformed = full_data_transformed[full_data_transformed['id'].isin(test_idx)].reset_index(drop=True)
+        return train_transformed, test_transformed
 
-    # train_idx = df['id'].values
-    # test_idx = df['id'].values
-    # df_test["target"] = -1
-    # full_data = pd.concat([df, df_test])
-    # cols = [c for c in df.columns if c not in ["id", "target"]]
-    # cat_feats = CategoricalFeatures(full_data,
-    #                                 categorical_features=cols,
-    #                                 encoding_type="label",
-    #                                 handle_na=True)
-    # full_data_transformed = cat_feats.fit_transform()
-    # train_df = full_data_transformed[full_data_transformed['id'].isin(train_idx)].reset_index(drop=True)
-    # test_df = full_data_transformed[full_data_transformed['id'].isin(test_idx)].reset_index(drop=True)
-    # print(train_df)
-
-
-    ############################################ binary encoding ##############################################
-
-    # cols = [c for c in df.columns if c not in ["id", "target"]]
-    # cat_feats = CategoricalFeatures(df,
-    #                                 categorical_features=cols,
-    #                                 encoding_type="binary",
-    #                                 handle_na=True)
-    # train_transformed = cat_feats.fit_transform()
-    # test_transformed = cat_feats.transform(df_test)
-    # print(train_transformed)
-
-
-
-    ############################################## building model ############################################
-
-    # clf = linear_model.LogisticRegression()
-    # clf.fit(X, df.target.values)
-    # preds = clf.predict_proba(X_test)[:, 1]
-    #
-    # sample.loc[:, "target"] = preds
-    # sample.to_csv("submission.csv", index=False)
+    elif encoder_type == 'binaryencoder':
+        cols = [c for c in df_train.columns if c not in ["id", "target"]]
+        cat_feats = CategoricalFeatures(df_train,
+                                        categorical_features=cols,
+                                        encoding_type="binary",
+                                        handle_na=True)
+        train_transformed = cat_feats.fit_transform()
+        test_transformed = cat_feats.transform(df_test)
+        return train_transformed, test_transformed
