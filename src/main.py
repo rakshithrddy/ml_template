@@ -1,11 +1,9 @@
-import sklearn
 from src import supporter
 import pandas as pd
 import math
 import numpy as np
 from sklearn.base import TransformerMixin
 from sklearn.impute import SimpleImputer
-import cross_validation
 import categorical
 import cross_validation
 
