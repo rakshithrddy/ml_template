@@ -2,10 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bcfd6d93-aa86-4f34-b37d-f5257cbea65c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/feature_scaler.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/regressor_models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/supporter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/ml_template.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ml_template.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/categorical.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/categorical.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cross_validation.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cross_validation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/regressor_models.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/regressor_models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +61,7 @@
       <recent name="C:\Users\raksh\PycharmProjects\ml_template\src" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.categorical">
+  <component name="RunManager" selected="Python.main">
     <configuration name="categorical" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="ml_template" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -73,28 +76,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/categorical.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="create_folds" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="ml_template" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/create_folds.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -125,6 +106,50 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="ml_template" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="supporter" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="ml_template" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/supporter.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="train" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="ml_template" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -147,21 +172,13 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="run.sh (1)" type="ShConfigurationType" temporary="true">
-      <option name="SCRIPT_PATH" value="$PROJECT_DIR$/run.sh" />
-      <option name="SCRIPT_OPTIONS" value="" />
-      <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="INTERPRETER_PATH" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.main" />
+        <item itemvalue="Python.supporter" />
         <item itemvalue="Python.categorical" />
         <item itemvalue="Python.cross_validation" />
         <item itemvalue="Python.train" />
-        <item itemvalue="Python.create_folds" />
-        <item itemvalue="Shell Script.run.sh (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -191,7 +208,8 @@
       <workItem from="1580921196367" duration="6175000" />
       <workItem from="1580972254130" duration="21552000" />
       <workItem from="1581005739097" duration="5112000" />
-      <workItem from="1581048686609" duration="6010000" />
+      <workItem from="1581048686609" duration="6019000" />
+      <workItem from="1581077094244" duration="16172000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <created>1580916614397</created>
@@ -284,7 +302,14 @@
       <option name="project" value="LOCAL" />
       <updated>1581050546668</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="bug fix">
+      <created>1581058063238</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1581058063238</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -296,10 +321,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="bug fix" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="-5" y="43" width="1885" height="941" key="CommitChangelistDialog2" timestamp="1581050543825">
+    <state x="-5" y="43" width="1885" height="941" key="CommitChangelistDialog2" timestamp="1581058062414">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="-5" y="43" width="1885" height="941" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1581050543825" />
+    <state x="-5" y="43" width="1885" height="941" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1581058062414" />
     <state x="161" y="69" key="DiffContextDialog" timestamp="1580917193024">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -312,22 +337,38 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="831" y="434" width="260" height="211" key="Github.ShareDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1580917043763" />
-    <state width="1877" height="524" key="GridCell.Tab.0.bottom" timestamp="1581055769231">
+    <state width="1877" height="335" key="GridCell.Tab.0.bottom" timestamp="1581095005339">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="524" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1581055769231" />
-    <state width="1877" height="524" key="GridCell.Tab.0.center" timestamp="1581055769231">
+    <state width="1877" height="335" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1581095005339" />
+    <state width="1877" height="335" key="GridCell.Tab.0.center" timestamp="1581095005339">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="524" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1581055769231" />
-    <state width="1877" height="524" key="GridCell.Tab.0.left" timestamp="1581055769230">
+    <state width="1877" height="335" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1581095005339" />
+    <state width="1877" height="335" key="GridCell.Tab.0.left" timestamp="1581095005338">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="524" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1581055769230" />
-    <state width="1877" height="524" key="GridCell.Tab.0.right" timestamp="1581055769231">
+    <state width="1877" height="335" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1581095005338" />
+    <state width="1877" height="335" key="GridCell.Tab.0.right" timestamp="1581095005339">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="524" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1581055769231" />
+    <state width="1877" height="335" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1581095005339" />
+    <state width="1877" height="363" key="GridCell.Tab.1.bottom" timestamp="1581093420064">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1877" height="363" key="GridCell.Tab.1.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1581093420064" />
+    <state width="1877" height="363" key="GridCell.Tab.1.center" timestamp="1581093420064">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1877" height="363" key="GridCell.Tab.1.center/0.0.1920.1080@0.0.1920.1080" timestamp="1581093420064" />
+    <state width="1877" height="363" key="GridCell.Tab.1.left" timestamp="1581093420064">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1877" height="363" key="GridCell.Tab.1.left/0.0.1920.1080@0.0.1920.1080" timestamp="1581093420064" />
+    <state width="1877" height="363" key="GridCell.Tab.1.right" timestamp="1581093420064">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1877" height="363" key="GridCell.Tab.1.right/0.0.1920.1080@0.0.1920.1080" timestamp="1581093420064" />
     <state x="461" y="183" key="SettingsEditor" timestamp="1580925117159">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -348,7 +389,9 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ml_template$categorical.coverage" NAME="categorical Coverage Results" MODIFIED="1581055766686" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/ml_template$train.coverage" NAME="train Coverage Results" MODIFIED="1580972530856" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/ml_template$supporter.coverage" NAME="supporter Coverage Results" MODIFIED="1581081111087" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/ml_template$cross_validation.coverage" NAME="cross_validation Coverage Results" MODIFIED="1580999303802" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/ml_template$main.coverage" NAME="main Coverage Results" MODIFIED="1581095005332" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/ml_template$create_folds.coverage" NAME="create_folds Coverage Results" MODIFIED="1580926944544" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
   </component>
 </project>

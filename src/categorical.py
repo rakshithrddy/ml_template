@@ -1,6 +1,5 @@
 from sklearn import preprocessing
 import pandas as pd
-from sklearn import linear_model
 
 
 class CategoricalFeatures:
@@ -81,7 +80,6 @@ class CategoricalFeatures:
 
         elif self.enc_type == "ohe":
             return self.ohe(dataframe[self.cat_feats].values)
-
         else:
             raise Exception("Encoding type not understood")
 

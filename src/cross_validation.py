@@ -2,7 +2,7 @@ import pandas as pd
 from sklearn import model_selection
 import numpy as np
 import math
-from sklearn.base import TransformerMixin
+
 """
 - -- binary classification
 - -- multi class classification
@@ -12,13 +12,10 @@ from sklearn.base import TransformerMixin
 - -- holdout
 """
 
-# when using time series dataset set shuffle=False
-
 
 class CrossValidation:
     def __init__(self,
                  df,
-                 shuffle,
                  target_cols,
                  multilabel_delimiter=',',
                  problem_type="binary_classification",
@@ -29,16 +26,8 @@ class CrossValidation:
         self.num_targets = len(target_cols)
         self.problem_type = problem_type
         self.num_folds = num_folds
-        self.shuffle = shuffle
         self.multilabel_delimiter = multilabel_delimiter
         self.random_state = random_state
-
-        print("Total null values are", self.dataframe.isnull().values.sum())
-        self.dataframe = DataFrameImputer().fit_transform(self.dataframe)
-        print("Total null values are", self.dataframe.isnull().values.sum())
-
-        if self.shuffle:
-            self.dataframe = self.dataframe.sample(frac=1).reset_index(drop=True)
         self.dataframe['kfold'] = -1
 
     def split(self):
@@ -83,30 +72,3 @@ class CrossValidation:
         return self.dataframe
 
 
-class DataFrameImputer(TransformerMixin):
-
-    def __init__(self):
-        """Impute missing values.
-
-        Columns of dtype object are imputed with the most frequent value
-        in column.
-
-        Columns of other types are imputed with mean of column.
-
-        """
-    def fit(self, X, y=None):
-        self.fill = pd.Series([X[c].value_counts().index[0]
-            if X[c].dtype == np.dtype('O') else math.ceil(X[c].mean()) for c in X],
-            index=X.columns)
-        return self
-
-    def transform(self, X, y=None):
-        return X.fillna(self.fill)
-
-
-if __name__ == '__main__':
-    df = pd.read_csv("../input/train.csv")
-    cv = CrossValidation(df, target_cols=["target"], problem_type='holdout_20', shuffle=False)
-    df_split = cv.split()
-    print(df_split.head())
-    print(df_split.kfold.value_counts())
