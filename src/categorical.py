@@ -1,4 +1,6 @@
 from sklearn import preprocessing
+import pandas as pd
+from sklearn import linear_model
 
 
 class CategoricalFeatures:
@@ -85,13 +87,11 @@ class CategoricalFeatures:
 
 
 if __name__ == "__main__":
-    import pandas as pd
-    from sklearn import linear_model
 
     shuffle = True
-    df = pd.read_csv("../input/train_cat.csv")
-    df_test = pd.read_csv("../input/test_cat.csv")
-    sample = pd.read_csv("../input/sample_submission.csv")
+    df = pd.read_csv("C:\\Users\\raksh\\PycharmProjects\\ml_template\\input\\train.csv")
+    df_test = pd.read_csv("C:\\Users\\raksh\\PycharmProjects\\ml_template\\input\\test.csv")
+    sample = pd.read_csv("C:\\Users\\raksh\\PycharmProjects\\ml_template\\input\\sample_submission.csv")
 
     if shuffle:
         df = df.sample(frac=1).reset_index(drop=True)
@@ -101,7 +101,7 @@ if __name__ == "__main__":
     # train_len = len(df)
     # df_test["target"] = -1
     # full_data = pd.concat([df, df_test])
-    # cols = [c for c in df.columns if c not in ["id", "target"]]
+    # cols = [c for c in df.columns if c not in ["id", "target"]]   # categorical columns which need encoding
     # cat_feats = CategoricalFeatures(full_data,
     #                                 categorical_features=cols,
     #                                 encoding_type="ohe",
@@ -111,7 +111,9 @@ if __name__ == "__main__":
     # X = full_data_transformed[:train_len, :]
     # X_test = full_data_transformed[train_len:, :]
 
+
     ############################################# for label encoding #############################################
+
     # train_idx = df['id'].values
     # test_idx = df['id'].values
     # df_test["target"] = -1
@@ -119,11 +121,12 @@ if __name__ == "__main__":
     # cols = [c for c in df.columns if c not in ["id", "target"]]
     # cat_feats = CategoricalFeatures(full_data,
     #                                 categorical_features=cols,
-    #                                 encoding_type="label ",
+    #                                 encoding_type="label",
     #                                 handle_na=True)
     # full_data_transformed = cat_feats.fit_transform()
-    # train_df = full_data_transformed[full_data_transformed['idx'].isin(train_idx)].reset_index(drop=True)
-    # test_df = full_data_transformed[full_data_transformed['idx'].isin(test_idx)].reset_index(drop=True)
+    # train_df = full_data_transformed[full_data_transformed['id'].isin(train_idx)].reset_index(drop=True)
+    # test_df = full_data_transformed[full_data_transformed['id'].isin(test_idx)].reset_index(drop=True)
+    # print(train_df)
 
 
     ############################################ binary encoding ##############################################
@@ -135,6 +138,7 @@ if __name__ == "__main__":
     #                                 handle_na=True)
     # train_transformed = cat_feats.fit_transform()
     # test_transformed = cat_feats.transform(df_test)
+    # print(train_transformed)
 
 
 
