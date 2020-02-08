@@ -5,7 +5,10 @@ import numpy as np
 from sklearn.base import TransformerMixin
 from sklearn.impute import SimpleImputer
 import categorical
-import cross_validation
+from cross_validation import CrossValidation
+from sklearn.preprocessing import StandardScaler, MinMaxScaler, MaxAbsScaler, Normalizer
+from sklearn.model_selection import train_test_split
+import statsmodels.formula.api as sm
 
 
 class DataFrameImputer(TransformerMixin):
@@ -35,9 +38,14 @@ class Main:
                  submission_csv=None,
                  fill_values=None,
                  shuffle=False,
-                 data_type='numerical',
+                 encoding=False,
                  encoder_attributes=None,
-                 feature_scaling=True):
+                 feature_scaling=True,
+                 feature_scaling_type=None,
+                 cross_validation=True,
+                 cross_validation_attributes=None,
+                 train_model=False,
+                 train_model_attributes=None):
         """
         :param train_csv: takes train csv filename
         :param test_csv: takes test csv filename
@@ -49,8 +57,8 @@ class Main:
         medion: fills the missing values with the median of the column(applicable for numerical and classification)
         most_frequent: fills the missing values with the most frequent values (applicable for numerical and classification)
         :param shuffle: takes bool, if true, shuffles the dataset
-        :param data_type: numerical, categorical,
-        :param encoder_attributes: dictionary of [not_cat_feats, encoder_type, target]
+        :param encoding: True/False
+        :param encoder_attributes: dictionary of [encoding type, non_categorical_features, encoder_type, target]
         :param feature_scaling: True/False (if true normalize the dataset)
         """
         self.train_csv = train_csv
@@ -62,23 +70,34 @@ class Main:
         self.fill_values = fill_values
         self.TransformerMixin_fit = DataFrameImputer()
         self.shuffle = shuffle
-        self.data_type = data_type
+        self.encoding = encoding
 
         # reading data files
         self.train_dataframe = pd.read_csv(self.folder_paths['path_to_train_csv'])
         self.test_dataframe = pd.read_csv(self.folder_paths['path_to_test_csv'])
         if submission_csv is not None:
             self.submission_dataframe = pd.read_csv(self.folder_paths['path_to_submission_csv'])
-
+        self.data_type = encoder_attributes['data_type']
         if self.data_type == 'categorical':
             if encoder_attributes is None:
                 raise Exception(f"For {self.data_type} method encoder attributes is mandatory")
             else:
                 self.encoder_attributes = encoder_attributes
-                self.not_categorical_features = encoder_attributes['not_cat_feats']
+                self.non_categorical_features = encoder_attributes['non_categorical_features']
                 self.encoding_type = encoder_attributes['encoder_type']
                 self.target_column = encoder_attributes['target']
         self.feature_scaling = feature_scaling
+        self.feature_scaling_type = feature_scaling_type
+        self.cross_validation = cross_validation
+        if self.cross_validation:
+            self.multilabel_delimiter = cross_validation_attributes['multilabel_delimiter']
+            self.problem_type = cross_validation_attributes['problem_type']
+            self.num_folds = cross_validation_attributes['num_folds']
+            self.random_state = cross_validation_attributes['random_state']
+
+        self.train_model = train_model
+        if self.train_model:
+            pass
 
     def data_imputer(self, dataframe):
         try:
@@ -106,13 +125,14 @@ class Main:
 
     def categorical_encoder(self, train_dataframe, test_dataframe, handle_na=False):
         try:
-            test_dataframe[self.target_column] = -1
+            for target in self.target_column:
+                test_dataframe[target] = -1
             full_dataframe = pd.concat([train_dataframe, test_dataframe])
             if self.encoding_type == 'ohe':
                 train_dataframe_len = len(train_dataframe)
-                feature_cols = [c for c in train_dataframe.columns if c not in self.not_categorical_features]
+                categorical_feature_cols = [c for c in train_dataframe.columns if c not in self.non_categorical_features]
                 category_encoder = categorical.CategoricalFeatures(df=full_dataframe,
-                                                                   categorical_features=feature_cols,
+                                                                   categorical_features=categorical_feature_cols,
                                                                    encoding_type=self.encoding_type,
                                                                    handle_na=handle_na)
                 full_dataframe_encoded = category_encoder.fit_transform()
@@ -122,9 +142,9 @@ class Main:
             elif self.encoding_type == 'label':
                 train_idx = train_dataframe['id'].values
                 test_idx = test_dataframe['id'].values
-                feature_cols = [c for c in train_dataframe.columns if c not in self.not_categorical_features]
+                categorical_feature_cols = [c for c in train_dataframe.columns if c not in self.non_categorical_features]
                 category_encoder = categorical.CategoricalFeatures(df=full_dataframe,
-                                                                   categorical_features=feature_cols,
+                                                                   categorical_features=categorical_feature_cols,
                                                                    encoding_type=self.encoding_type,
                                                                    handle_na=handle_na)
                 full_dataframe_encoded = category_encoder.fit_transform()
@@ -132,9 +152,9 @@ class Main:
                 test_dataframe_encoded = full_dataframe_encoded[full_dataframe_encoded['id'].isin(test_idx)].reset_index(drop=True)
                 return train_dataframe_encoded, test_dataframe_encoded
             elif self.encoding_type == 'binary':
-                feature_cols = [c for c in train_dataframe.columns if c not in self.not_categorical_features]
+                categorical_feature_cols = [c for c in train_dataframe.columns if c not in self.non_categorical_features]
                 category_encoder = categorical.CategoricalFeatures(df=train_dataframe,
-                                                                   categorical_features=feature_cols,
+                                                                   categorical_features=categorical_feature_cols,
                                                                    encoding_type=self.encoding_type,
                                                                    handle_na=handle_na)
                 train_dataframe_encoded = category_encoder.fit_transform()
@@ -145,6 +165,32 @@ class Main:
 
     def dataset_cross_validation(self, train_dataset, test_dataset):
         pass
+
+
+    def feature_scalar(self, train_dataframe, test_dataframe):
+        # train_list = set(self.train_dataframe.columns.tolist())
+        # test_list = set(self.test_dataframe.columns.tolist())
+        # left_out_cols = list(train_list.difference(test_list))
+        # for columns in left_out_cols:
+        #     test_dataframe[columns] = -999999
+        if self.feature_scaling_type == 'standard':
+            scalar = StandardScaler()
+            train_dataframe = scalar.fit_transform(train_dataframe)
+            test_dataframe = scalar.transform(test_dataframe)
+        if self.feature_scaling_type == 'minmax':
+            scalar = MinMaxScaler()
+            train_dataframe = scalar.fit_transform(train_dataframe)
+            test_dataframe = scalar.transform(test_dataframe)
+        elif self.feature_scaling_type == 'MaxAbs':
+            scalar = MaxAbsScaler()
+            train_dataframe = scalar.fit_transform(train_dataframe)
+            test_dataframe = scalar.transform(test_dataframe)
+        elif self.feature_scaling_type == 'normalize':
+            scalar = Normalizer()
+            train_dataframe = scalar.fit_transform(train_dataframe)
+            test_dataframe = scalar.transform(test_dataframe)
+        return train_dataframe, test_dataframe
+
 
 
     def processer(self):
@@ -158,39 +204,63 @@ class Main:
             self.train_dataframe = self.shuffle_data(self.train_dataframe)
             self.test_dataframe = self.shuffle_data(self.test_dataframe)
 
-        if self.data_type == 'numerical':
-            print(self.data_type)
-            pass
-        elif self.data_type == 'categorical':
-            print(self.data_type)
-            self.train_dataframe, self.test_dataframe = self.categorical_encoder(train_dataframe=self.train_dataframe,
-                                                                                 test_dataframe=self.test_dataframe)
-        else:
-            raise Exception(f"{self.data_type} not available")
+        if self.encoding:
+            if self.data_type == 'numerical':
+                print(self.data_type)
+                pass
+            elif self.data_type == 'categorical':
+                print(f'Performing categorical encoding using {self.encoding_type}')
+                self.train_dataframe, self.test_dataframe = self.categorical_encoder(train_dataframe=self.train_dataframe,
+                                                                                     test_dataframe=self.test_dataframe)
+            else:
+                raise Exception(f"{self.data_type} not available")
 
-        # TODO feature scaling
+
         if self.feature_scaling:
-            pass
+            print('feature scaling the datasets')
+            self.train_dataframe, self.test_dataframe = self.feature_scalar(train_dataframe=self.train_dataframe,
+                                                                            test_dataframe=self.test_dataframe)
 
-        #TODO cross validation
 
-        #TODO Model training
+        if self.cross_validation:
+            print(f'cross validating the dataset using {self.problem_type} method')
+            cross_instance = CrossValidation(df=self.train_dataframe,
+                                             target_cols=self.target_column,
+                                             multilabel_delimiter=self.multilabel_delimiter,
+                                             problem_type=self.problem_type,
+                                             num_folds=self.num_folds,
+                                             random_state=self.random_state)
+            self.train_dataframe = cross_instance.split()
+
+        # if self.train_model:
 
 
 def starter():
-    encoder_attributes = {'not_cat_feats': ['id', 'target'],
+    encoder_attributes = {'non_categorical_features': ['id', 'target', 'bin_0', 'bin_1', 'bin_2', 'ord_0'],
                           'encoder_type': 'label',
-                          'target': 'target'}
+                          'target': ['target'],
+                          'data_type': 'categorical'}
+
+    cross_validation_attributes = {'multilabel_delimiter': "','",
+                                   'problem_type': 'binary_classification',
+                                   'num_folds': 5,
+                                   'random_state': 42}
+
+    train_model_attributes = {}
+
     instance = Main(train_csv='train.csv',
                     test_csv='test.csv',
                     submission_csv=None,
                     fill_values='TransformerMixin',
-                    shuffle=False,
-                    data_type='categorical',
+                    shuffle=True,
+                    encoding=True,
                     encoder_attributes=encoder_attributes,
-                    feature_scaling=True)
+                    feature_scaling=False,
+                    feature_scaling_type='standard',
+                    cross_validation=True,
+                    cross_validation_attributes=cross_validation_attributes,
+                    train_model=False,
+                    train_model_attributes=train_model_attributes)
     instance.processer()
 
 starter()
-
-
