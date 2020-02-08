@@ -178,11 +178,11 @@ class Main:
 
 
     def feature_scalar(self, train_dataframe, test_dataframe):
-        # train_list = set(self.train_dataframe.columns.tolist())
-        # test_list = set(self.test_dataframe.columns.tolist())
-        # left_out_cols = list(train_list.difference(test_list))
-        # for columns in left_out_cols:
-        #     test_dataframe[columns] = -999999
+        """
+        :param train_dataframe: X_train dataframe
+        :param test_dataframe: X_test dataframe
+        :return: trasformed dataset in ndarray
+        """
         if self.feature_scaling_type == 'standard':
             scalar = StandardScaler()
             train_dataframe = scalar.fit_transform(train_dataframe)
@@ -191,7 +191,7 @@ class Main:
             scalar = MinMaxScaler()
             train_dataframe = scalar.fit_transform(train_dataframe)
             test_dataframe = scalar.transform(test_dataframe)
-        elif self.feature_scaling_type == 'MaxAbs':
+        elif self.feature_scaling_type == 'maxabs':
             scalar = MaxAbsScaler()
             train_dataframe = scalar.fit_transform(train_dataframe)
             test_dataframe = scalar.transform(test_dataframe)
@@ -235,10 +235,6 @@ class Main:
             else:
                 raise Exception(f"{self.data_type} not available")
 
-        # if self.feature_scaling:
-        #     print('feature scaling the datasets')
-        #     self.train_dataframe, self.test_dataframe = self.feature_scalar(train_dataframe=self.train_dataframe,
-        #                                                                     test_dataframe=self.test_dataframe)
 
         if self.train_model:
             for fold in range(5):
@@ -251,6 +247,10 @@ class Main:
                 y_validate = main_validate.target.values
                 X_train = main_train.drop(["id", "target", "kfold"], axis=1)
                 X_validate = main_validate.drop(["id", "target", "kfold"], axis=1)
+                if self.feature_scaling:
+                    print('feature scaling the datasets')
+                    X_train, X_validate = self.feature_scalar(train_dataframe=X_train,
+                                                              test_dataframe=X_validate)
                 train_instance = ModelTrainer(X_train=X_train, X_validate=X_validate, y_train=y_train, y_validate=y_validate,
                                               model_name=self.model_name)
                 train_instance.train()
@@ -265,6 +265,7 @@ def starter():
     - -- multi_col_regression  use only when the dataset contains more than 1 independent column(features) and one depended column(label)
     - -- holdout_ use only when you want to split he dataset into a perticular train test ration.
                     use case: holdout_20 will splits the dataset into 80% train and 20% test
+    - -- feature transform method: standard, minmax, maxabs, normalize
     """
     encoder_attributes = {'non_categorical_features': ['id', 'bin_0', 'bin_1', 'bin_2', 'ord_0', 'day', 'month', 'kfold', 'target'],
                           'encoder_type': 'label',
@@ -286,8 +287,8 @@ def starter():
                     cross_validation_attributes=cross_validation_attributes,
                     encoding=True,
                     encoder_attributes=encoder_attributes,
-                    feature_scaling=False,
-                    feature_scaling_type='standard',
+                    feature_scaling=True,
+                    feature_scaling_type='minmax',
                     train_model=True,
                     train_model_attributes=train_model_attributes)
     instance.processer()
