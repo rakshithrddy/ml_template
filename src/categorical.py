@@ -1,5 +1,4 @@
 from sklearn import preprocessing
-import pandas as pd
 
 
 class CategoricalFeatures:
@@ -82,51 +81,3 @@ class CategoricalFeatures:
             return self.ohe(dataframe[self.cat_feats].values)
         else:
             raise Exception("Encoding type not understood")
-
-
-def main(path_train_sample, path_test_sample, encoder_type, shuffle=True):
-    df_train = pd.read_csv(path_train_sample)
-    df_test = pd.read_csv(path_test_sample)
-    if shuffle:
-        df_train = df_train.sample(frac=1).reset_index(drop=True)
-        df_test = df_test.sample(frac=1).reset_index(drop=True)
-
-    if encoder_type == 'onehotencoder':
-        train_len = len(df_train)
-        df_test["target"] = -1
-        full_data = pd.concat([df_train, df_test])
-        cols = [c for c in df_train.columns if c not in ["id", "target"]]   # categorical columns which need encoding
-        cat_feats = CategoricalFeatures(full_data,
-                                        categorical_features=cols,
-                                        encoding_type="ohe",
-                                        handle_na=True)
-        full_data_transformed = cat_feats.fit_transform()
-        train_transformed = full_data_transformed[:train_len, :]
-        test_transformed = full_data_transformed[train_len:, :]
-        return train_transformed, test_transformed
-
-
-    elif encoder_type == 'labelencoder':
-        train_idx = df_train['id'].values
-        test_idx = df_test['id'].values
-        df_test["target"] = -1
-        full_data = pd.concat([df_train, df_test])
-        cols = [c for c in df_train.columns if c not in ["id", "target"]]
-        cat_feats = CategoricalFeatures(full_data,
-                                        categorical_features=cols,
-                                        encoding_type="label",
-                                        handle_na=True)
-        full_data_transformed = cat_feats.fit_transform()
-        train_transformed = full_data_transformed[full_data_transformed['id'].isin(train_idx)].reset_index(drop=True)
-        test_transformed = full_data_transformed[full_data_transformed['id'].isin(test_idx)].reset_index(drop=True)
-        return train_transformed, test_transformed
-
-    elif encoder_type == 'binaryencoder':
-        cols = [c for c in df_train.columns if c not in ["id", "target"]]
-        cat_feats = CategoricalFeatures(df_train,
-                                        categorical_features=cols,
-                                        encoding_type="binary",
-                                        handle_na=True)
-        train_transformed = cat_feats.fit_transform()
-        test_transformed = cat_feats.transform(df_test)
-        return train_transformed, test_transformed

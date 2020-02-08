@@ -9,6 +9,7 @@ from cross_validation import CrossValidation
 from sklearn.preprocessing import StandardScaler, MinMaxScaler, MaxAbsScaler, Normalizer
 from sklearn.model_selection import train_test_split
 import statsmodels.formula.api as sm
+from train import ModelTrainer
 
 
 class DataFrameImputer(TransformerMixin):
@@ -102,6 +103,14 @@ class Main:
         if self.train_model:
             self.train_attributes = train_model_attributes
             self.model_name = self.train_attributes['model_name']
+
+        self.FOLD_MAPPING = {
+            0: [1, 2, 3, 4],
+            1: [0, 2, 3, 4],
+            2: [0, 1, 3, 4],
+            3: [0, 1, 2, 4],
+            4: [0, 1, 2, 3]
+        }
 
     def data_imputer(self, dataframe):
         try:
@@ -232,9 +241,19 @@ class Main:
         #                                                                     test_dataframe=self.test_dataframe)
 
         if self.train_model:
-            pass
+            for fold in range(5):
+                print(f"selecting fold {fold}")
+                main_train = self.train_dataframe[self.train_dataframe.kfold.isin(self.FOLD_MAPPING.get(fold))]
+                main_validate = self.train_dataframe[self.train_dataframe.kfold == fold]
 
-
+                ########### splitting the train data frame into x_train, x_test, y_train, X_test ##############
+                y_train = main_train.target.values
+                y_validate = main_validate.target.values
+                X_train = main_train.drop(["id", "target", "kfold"], axis=1)
+                X_validate = main_validate.drop(["id", "target", "kfold"], axis=1)
+                train_instance = ModelTrainer(X_train=X_train, X_validate=X_validate, y_train=y_train, y_validate=y_validate,
+                                              model_name=self.model_name)
+                train_instance.train()
 
 
 def starter():
@@ -256,7 +275,7 @@ def starter():
                                    'problem_type': 'binary_classification',
                                    'num_folds': 5,
                                    'random_state': 42}
-    train_model_attributes = {'model_name':'linear_regression'}
+    train_model_attributes = {'model_name': 'randomforest'}
     instance = Main(train_csv='train.csv',
                     test_csv='test.csv',
                     submission_csv=None,
@@ -269,7 +288,7 @@ def starter():
                     encoder_attributes=encoder_attributes,
                     feature_scaling=False,
                     feature_scaling_type='standard',
-                    train_model=False,
+                    train_model=True,
                     train_model_attributes=train_model_attributes)
     instance.processer()
 
