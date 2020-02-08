@@ -1,15 +1,12 @@
-import pandas as pd
 from sklearn import model_selection
-import numpy as np
-import math
 
 """
-- -- binary classification
-- -- multi class classification
-- -- multi label classification
-- -- single column regression
-- -- multi column regression
-- -- holdout
+- -- binary_classification
+- -- multiclass_classification
+- -- multilabel_classification
+- -- single_col_regression
+- -- multi_col_regression
+- -- holdout_
 """
 
 
@@ -37,7 +34,7 @@ class CrossValidation:
             target = self.target_cols[0]
             unique_values = self.dataframe[target].nunique()
             if unique_values == 1:
-                raise Exception("Only one unique value found!")
+                raise Exception("Only one unique value found in target column!")
             elif unique_values > 1:
                 kf = model_selection.StratifiedKFold(n_splits=self.num_folds,
                                                      shuffle=False)

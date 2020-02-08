@@ -18,6 +18,7 @@ FOLD_MAPPING = {
     4: [0, 1, 2, 3]
 }
 
+
 if __name__ == "__main__":
     df = pd.read_csv(TRAINING_DATA)
     df_test = pd.read_csv(TEST_DATA)

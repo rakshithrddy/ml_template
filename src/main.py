@@ -36,7 +36,8 @@ class Main:
                  train_csv,
                  test_csv,
                  submission_csv=None,
-                 fill_values=None,
+                 impute_table=False,
+                 impute_method=None,
                  shuffle=False,
                  encoding=False,
                  encoder_attributes=None,
@@ -50,7 +51,8 @@ class Main:
         :param train_csv: takes train csv filename
         :param test_csv: takes test csv filename
         :param submission_csv: takes submission csv filename(not mandatory)
-        :param fill_values: takes the method type to impute data
+        :param impute_table: True/False
+        :param impute_method: takes the method type to impute data
         (TransformerMixin : Columns of dtype object are imputed with the most frequent value in column.
         Columns of other types are imputed with mean of column.)
         mean: fills the missing values with the mean of the column (applicable for numerical data only)
@@ -67,16 +69,17 @@ class Main:
         self.folder_paths = supporter.folder_paths(train_csv=self.train_csv,
                                                    test_csv=self.test_csv,
                                                    submission_csv=self.submission_csv)
-        self.fill_values = fill_values
         self.TransformerMixin_fit = DataFrameImputer()
-        self.shuffle = shuffle
-        self.encoding = encoding
-
-        # reading data files
         self.train_dataframe = pd.read_csv(self.folder_paths['path_to_train_csv'])
         self.test_dataframe = pd.read_csv(self.folder_paths['path_to_test_csv'])
         if submission_csv is not None:
             self.submission_dataframe = pd.read_csv(self.folder_paths['path_to_submission_csv'])
+
+        self.impute_table = impute_table
+        if self.impute_table:
+            self.impute_method = impute_method
+        self.shuffle = shuffle
+        self.encoding = encoding
         self.data_type = encoder_attributes['data_type']
         if self.data_type == 'categorical':
             if encoder_attributes is None:
@@ -97,24 +100,25 @@ class Main:
 
         self.train_model = train_model
         if self.train_model:
-            pass
+            self.train_attributes = train_model_attributes
+            self.model_name = self.train_attributes['model_name']
 
     def data_imputer(self, dataframe):
         try:
-            if self.fill_values == 'TransformerMixin' and self.data_type == 'numerical' or self.data_type == 'categorical':
+            if self.impute_method == 'TransformerMixin' and self.data_type == 'numerical' or self.data_type == 'categorical':
                 self.TransformerMixin_fit.fit(dataframe)
                 return self.TransformerMixin_fit.transform(dataframe)
-            elif self.fill_values == "mean" and self.data_type == 'numerical':
-                impute = SimpleImputer(missing_values="NaN", strategy=self.fill_values)
+            elif self.impute_method == "mean" and self.data_type == 'numerical':
+                impute = SimpleImputer(missing_values="NaN", strategy=self.impute_method)
                 return impute.fit_transform(dataframe)
-            elif self.fill_values == "median" and self.data_type == 'numerical' or self.data_type == 'categorical':
-                impute = SimpleImputer(missing_values="NaN", strategy=self.fill_values)
+            elif self.impute_method == "median" and self.data_type == 'numerical' or self.data_type == 'categorical':
+                impute = SimpleImputer(missing_values="NaN", strategy=self.impute_method)
                 return impute.fit_transform(dataframe)
-            elif self.fill_values == "most_frequent" and self.data_type == 'numerical' or self.data_type == 'categorical':
-                impute = SimpleImputer(missing_values="NaN", strategy=self.fill_values)
+            elif self.impute_method == "most_frequent" and self.data_type == 'numerical' or self.data_type == 'categorical':
+                impute = SimpleImputer(missing_values="NaN", strategy=self.impute_method)
                 return impute.fit_transform(dataframe)
         except Exception:
-            raise Exception(f"{self.fill_values} method is not suitable for {self.data_type}")
+            raise Exception(f"{self.impute_method} method is not suitable for {self.data_type}")
 
     @staticmethod
     def shuffle_data(dataframe):
@@ -163,9 +167,6 @@ class Main:
         except Exception as e:
             raise e
 
-    def dataset_cross_validation(self, train_dataset, test_dataset):
-        pass
-
 
     def feature_scalar(self, train_dataframe, test_dataframe):
         # train_list = set(self.train_dataframe.columns.tolist())
@@ -194,8 +195,8 @@ class Main:
 
 
     def processer(self):
-        if self.fill_values is not None:
-            print(f"Imputing train and test dataframe using {self.fill_values}")
+        if self.impute_table:
+            print(f"Imputing train and test dataframe using {self.impute_method}")
             self.train_dataframe = self.data_imputer(self.train_dataframe)
             self.test_dataframe = self.data_imputer(self.test_dataframe)
 
@@ -203,24 +204,6 @@ class Main:
             print(f'Shuffling train and test dataframe')
             self.train_dataframe = self.shuffle_data(self.train_dataframe)
             self.test_dataframe = self.shuffle_data(self.test_dataframe)
-
-        if self.encoding:
-            if self.data_type == 'numerical':
-                print(self.data_type)
-                pass
-            elif self.data_type == 'categorical':
-                print(f'Performing categorical encoding using {self.encoding_type}')
-                self.train_dataframe, self.test_dataframe = self.categorical_encoder(train_dataframe=self.train_dataframe,
-                                                                                     test_dataframe=self.test_dataframe)
-            else:
-                raise Exception(f"{self.data_type} not available")
-
-
-        if self.feature_scaling:
-            print('feature scaling the datasets')
-            self.train_dataframe, self.test_dataframe = self.feature_scalar(train_dataframe=self.train_dataframe,
-                                                                            test_dataframe=self.test_dataframe)
-
 
         if self.cross_validation:
             print(f'cross validating the dataset using {self.problem_type} method')
@@ -232,11 +215,39 @@ class Main:
                                              random_state=self.random_state)
             self.train_dataframe = cross_instance.split()
 
-        # if self.train_model:
+        if self.encoding:
+            if self.data_type == 'numerical':
+                print(f'Performing categorical encoding using {self.encoding_type}')
+                pass
+            elif self.data_type == 'categorical':
+                print(f'Performing categorical encoding using {self.encoding_type}')
+                self.train_dataframe, self.test_dataframe = self.categorical_encoder(train_dataframe=self.train_dataframe,
+                                                                                     test_dataframe=self.test_dataframe)
+            else:
+                raise Exception(f"{self.data_type} not available")
+
+        # if self.feature_scaling:
+        #     print('feature scaling the datasets')
+        #     self.train_dataframe, self.test_dataframe = self.feature_scalar(train_dataframe=self.train_dataframe,
+        #                                                                     test_dataframe=self.test_dataframe)
+
+        if self.train_model:
+            pass
+
+
 
 
 def starter():
-    encoder_attributes = {'non_categorical_features': ['id', 'target', 'bin_0', 'bin_1', 'bin_2', 'ord_0'],
+    """
+    - -- binary_classification  use only when the datasets' target column contains EXACTLY 2 types of classes
+    - -- multiclass_classification use only when the datasets' target column contains more than 2 types of classes
+    - -- multilabel_classification  use only when the dataset contains more than one target column. (delimiter: mandatory)
+    - -- single_col_regression  use only when the dataset contains only on independent column(features) and one dependent column(labels)
+    - -- multi_col_regression  use only when the dataset contains more than 1 independent column(features) and one depended column(label)
+    - -- holdout_ use only when you want to split he dataset into a perticular train test ration.
+                    use case: holdout_20 will splits the dataset into 80% train and 20% test
+    """
+    encoder_attributes = {'non_categorical_features': ['id', 'bin_0', 'bin_1', 'bin_2', 'ord_0', 'day', 'month', 'kfold', 'target'],
                           'encoder_type': 'label',
                           'target': ['target'],
                           'data_type': 'categorical'}
@@ -245,20 +256,19 @@ def starter():
                                    'problem_type': 'binary_classification',
                                    'num_folds': 5,
                                    'random_state': 42}
-
-    train_model_attributes = {}
-
+    train_model_attributes = {'model_name':'linear_regression'}
     instance = Main(train_csv='train.csv',
                     test_csv='test.csv',
                     submission_csv=None,
-                    fill_values='TransformerMixin',
+                    impute_table=True,
+                    impute_method='TransformerMixin',
                     shuffle=True,
+                    cross_validation=True,
+                    cross_validation_attributes=cross_validation_attributes,
                     encoding=True,
                     encoder_attributes=encoder_attributes,
                     feature_scaling=False,
                     feature_scaling_type='standard',
-                    cross_validation=True,
-                    cross_validation_attributes=cross_validation_attributes,
                     train_model=False,
                     train_model_attributes=train_model_attributes)
     instance.processer()
