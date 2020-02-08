@@ -14,7 +14,7 @@ class ModelTrainer:
     def train(self):
         print(f'training with {self.model_name}')
         classifier = dispatcher.MODELS[self.model_name]
-        classifier.fit(self.X_train, self.y_train)
+        classifier.fit(self.X_train, self.y_train.ravel())
         preds = classifier.predict_proba(self.X_validate)[:, 1]
         print(metrics.roc_auc_score(self.y_validate, preds))
 
