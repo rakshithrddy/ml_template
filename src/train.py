@@ -1,6 +1,7 @@
 from sklearn import metrics
 import dispatcher
 import joblib
+from metrics import Metrics
 
 
 class ModelTrainer:
@@ -15,8 +16,8 @@ class ModelTrainer:
         print(f'training with {self.model_name}')
         classifier = dispatcher.MODELS[self.model_name]
         classifier.fit(self.X_train, self.y_train.ravel())
-        preds = classifier.predict_proba(self.X_validate)[:, 1]
-        print(metrics.roc_auc_score(self.y_validate, preds))
+        metric_instance = Metrics(classifier=classifier, X_validate=self.X_validate, y_validate=self.y_validate)
+        metric_instance.get_model_performance()
 
         # joblib.dump(label_encoders, f"models/{MODEL}_{FOLD}_label_encoder.pkl")
         # joblib.dump(clf, f"models/{MODEL}_{FOLD}.pkl")

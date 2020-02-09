@@ -144,7 +144,7 @@ class PreProcessing:
             scalar = StandardScaler()
             train_dataframe = scalar.fit_transform(train_dataframe)
             test_dataframe = scalar.transform(test_dataframe)
-        if self.feature_scaling_type == 'minmax':
+        elif self.feature_scaling_type == 'minmax':
             scalar = MinMaxScaler()
             train_dataframe = scalar.fit_transform(train_dataframe)
             test_dataframe = scalar.transform(test_dataframe)

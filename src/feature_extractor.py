@@ -17,7 +17,7 @@ class FeatureExtractor:
         """
         flag = True
         while flag:
-            pca = PCA(n_components=self.n_components)
+            pca = PCA(n_components=self.n_components, svd_solver='auto')
             self.X_train = pca.fit_transform(self.X_train)
             self.X_validate = pca.transform(self.X_validate)
             explainted_variance = pca.explained_variance_ratio_
@@ -38,8 +38,8 @@ class FeatureExtractor:
         """
         info: lda is an supervised analysis, can be used only with linearly separable data
         """
-        lda = LDA(n_components=self.n_components)
-        self.X_train = lda.fit_transform(self.X_train, self.y_train)  # in supervised we include y_train
+        lda = LDA(n_components=self.n_components, solver='svd', store_covariance=True)
+        self.X_train = lda.fit_transform(self.X_train, self.y_train.ravel())  # in supervised we include y_train
         self.X_validate = lda.transform(self.X_validate)
 
     def kernalpca(self):
