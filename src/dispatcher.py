@@ -78,5 +78,5 @@ MODELS = {
                                                             connectivity=None, compute_full_tree='auto',
                                                             linkage='ward', distance_threshold=None),
 
-    'xgb': xgb.XGBClassifier(verbosity=2)
+    'xgb': xgb.XGBClassifier()
 }

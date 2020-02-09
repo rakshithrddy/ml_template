@@ -21,6 +21,7 @@ def concat(string1, string2):
 def folder_paths(train_csv, test_csv, submission_csv):
     path_to_src = os.getcwd()
     path_to_input = string_edit('input/', 0)
+    path_to_models = string_edit('models/', 0)
     path_to_train_csv = concat(path_to_input, train_csv)
     path_to_test_csv = concat(path_to_input, test_csv)
     path_to_submission_csv = concat(path_to_input, submission_csv)
@@ -28,4 +29,5 @@ def folder_paths(train_csv, test_csv, submission_csv):
             "path_to_input": path_to_input,
             "path_to_train_csv": path_to_train_csv,
             "path_to_test_csv": path_to_test_csv,
-            "path_to_submission_csv": path_to_submission_csv}
+            "path_to_submission_csv": path_to_submission_csv,
+            "path_to_models": path_to_models}

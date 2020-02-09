@@ -1,50 +1,43 @@
 import pandas as pd
-import os
-import joblib
 import numpy as np
-
-TEST_DATA = os.environ.get("TEST_DATA")
-MODEL = os.environ.get("MODEL")
+import json
 
 
-def predict():
-    df = pd.read_csv(TEST_DATA)
+class Predicter:
+    def __init__(self, test_dataframe, classifier, cross_validation_type, submission_columns, model_name, attributes,
+                 path_to_models, n_kfolds):
+        self.test_dataframe = test_dataframe
+        print(self.test_dataframe.columns)
+        self.classifier = classifier
+        self.cross_validation_type = cross_validation_type
+        self.prediction = None
+        self.submission_columns = submission_columns
+        self.model_name = model_name
+        self.attributes = attributes
+        self.path_to_models = path_to_models
+        self.n_folds = n_kfolds
 
-    if df.isnull().values.sum() > 0:
-        df.fillna(method='ffill', inplace=True)
-
-    test_idx = df["id"].values
-    predictions = None
-
-    for FOLD in range(5):
-        print(FOLD)
-        df = pd.read_csv(TEST_DATA)
-
-        print("Total null values are", df.isnull().values.sum())
-        if df.isnull().values.sum() > 0:
-            df.fillna(method='ffill', inplace=True)
-
-        encoders = joblib.load(os.path.join("models", f"{MODEL}_{FOLD}_label_encoder.pkl"))
-        cols = joblib.load(os.path.join("models", f"{MODEL}_{FOLD}_columns.pkl"))
-        for c in encoders:
-            print(c)
-            lbl = encoders[c]
-            df.loc[:, c] = lbl.transform(df[c].values.tolist())
-
-        clf = joblib.load(os.path.join("models", f"{MODEL}_{FOLD}.pkl"))
-        df = df[cols]
-        preds = clf.predict_proba(df)[:, 1]
-        if FOLD == 0:
-            predictions = preds
+    def predict(self):
+        if self.cross_validation_type == 'kfold':
+            test_idx = self.test_dataframe['id'].values
+            for FOLD in range(self.n_folds):
+                print(FOLD)
+                preds = self.classifier.predict_proba(self.test_dataframe)[:, 1]
+                if FOLD == 0:
+                    self.prediction = preds
+                else:
+                    self.prediction += preds
+            self.prediction /= 5
+            submission = pd.DataFrame(np.column_stack((test_idx, self.prediction)), columns=self.submission_columns)
+            submission.id = submission.id.astype(int)
+            submission.to_csv(f"{self.path_to_models}{self.model_name}.csv", index=False)
+        elif self.cross_validation_type == 'train_test_split':
+            test_idx = self.test_dataframe['id'].values
+            self.prediction = self.classifier.predict_proba(self.test_dataframe)[:, 1]
+            submission = pd.DataFrame(np.column_stack((test_idx, self.prediction)), columns=self.submission_columns)
+            submission.id = submission.id.astype(int)
+            submission.to_csv(f"{self.path_to_models}{self.model_name}.csv", index=False)
         else:
-            predictions += preds
-
-    predictions /= 5
-    sub = pd.DataFrame(np.column_stack((test_idx, predictions)), columns=["id", "target"])
-    sub.id = sub.id.astype(int)
-    return sub
-
-
-if __name__ == "__main__":
-    submission = predict()
-    submission.to_csv(f"models\\{MODEL}.csv", index=False)
+            raise Exception
+        with open(f"{self.path_to_models}{self.model_name}_attributes.json", 'w') as fp:
+            json.dump(self.attributes, fp)

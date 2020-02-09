@@ -39,7 +39,10 @@ class FeatureExtractor:
         info: lda is an supervised analysis, can be used only with linearly separable data
         """
         lda = LDA(n_components=self.n_components, solver='svd', store_covariance=True)
-        self.X_train = lda.fit_transform(self.X_train, self.y_train.ravel())  # in supervised we include y_train
+        try:
+            self.X_train = lda.fit_transform(self.X_train, self.y_train.ravel())  # in supervised we include y_train
+        except:
+            self.X_train = lda.fit_transform(self.X_train, self.y_train.values.ravel())
         self.X_validate = lda.transform(self.X_validate)
 
     def kernalpca(self):

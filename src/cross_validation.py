@@ -11,18 +11,13 @@ from sklearn import model_selection
 
 
 class CrossValidation:
-    def __init__(self,
-                 df,
-                 target_cols,
-                 multilabel_delimiter=',',
-                 problem_type="binary_classification",
-                 num_folds=5,
-                 random_state=42):
-        self.dataframe = df
-        self.target_cols = target_cols
-        self.num_targets = len(target_cols)
+    def __init__(self, dataframe, target_columns, multilabel_delimiter=',', problem_type="binary_classification",
+                 n_kfold=5, random_state=42):
+        self.dataframe = dataframe
+        self.target_columns = target_columns
+        self.num_targets = len(self.target_columns)
         self.problem_type = problem_type
-        self.num_folds = num_folds
+        self.num_folds = n_kfold
         self.multilabel_delimiter = multilabel_delimiter
         self.random_state = random_state
         self.dataframe['kfold'] = -1
@@ -31,7 +26,7 @@ class CrossValidation:
         if self.problem_type in ("binary_classification", "multiclass_classification"):
             if self.num_targets != 1:
                 raise Exception("Invalid number of targets for this problem type")
-            target = self.target_cols[0]
+            target = self.target_columns[0]
             unique_values = self.dataframe[target].nunique()
             if unique_values == 1:
                 raise Exception("Only one unique value found in target column!")
@@ -60,7 +55,7 @@ class CrossValidation:
         elif self.problem_type == "multilabel_classification":
             if self.num_targets != 1:
                 raise Exception("Invalid number of targets for this problem type")
-            targets = self.dataframe[self.target_cols[0]].apply(lambda x: len(str(x).split(self.multilabel_delimiter)))
+            targets = self.dataframe[self.target_columns[0]].apply(lambda x: len(str(x).split(self.multilabel_delimiter)))
             kf = model_selection.StratifiedKFold(n_splits=self.num_folds)
             for fold, (train_idx, val_idx) in enumerate(kf.split(X=self.dataframe, y=targets)):
                 self.dataframe.loc[val_idx, 'kfold'] = fold
