@@ -29,9 +29,10 @@ class DataFrameImputer(TransformerMixin):
 
 
 class PreProcessing:
-    def __init__(self, target_columns, feature_scaling_type, impute_method, test_csv):
+    def __init__(self, target_columns, feature_scaling_type, impute_method, test_csv, drop_threshold):
         #   initialize data imputer attributes
         self.impute_method = impute_method
+        self.drop_threshold = drop_threshold
         self.test_csv = test_csv
 
         #   initialize categorial encoder attributes
@@ -41,43 +42,62 @@ class PreProcessing:
         self.feature_scaling_type = feature_scaling_type
 
 
-    def data_imputer(self, train_dataframe, test_dataframe):
+    def data_imputer(self, train_dataframe, test_dataframe=None, impute_method=None):
         try:
             train_dataframe.fillna(np.nan, inplace=True)
-            test_dataframe.fillna(np.nan, inplace=True)
+            if test_dataframe is not None:
+                test_dataframe.fillna(np.nan, inplace=True)
+            if impute_method is not None:
+                self.impute_method = impute_method
             if self.impute_method == 'transformermix':
                 print(f"Imputing train and test dataframe using {self.impute_method}")
+                print(f"Total null value count in train data set= {train_dataframe.isnull().values.sum()}")
                 transform_mix = DataFrameImputer()
                 train_dataframe = transform_mix.fit_transform(train_dataframe)
-                test_dataframe = transform_mix.fit_transform(test_dataframe)
+                if test_dataframe is not None:
+                    print(f"Total null value count in test data set= {test_dataframe.isnull().values.sum()}")
+                    test_dataframe = transform_mix.fit_transform(test_dataframe)
 
             elif self.impute_method == "mean":
                 print(f"Imputing train and test dataframe using {self.impute_method}")
+                print(f"Total null value count in train data set= {train_dataframe.isnull().values.sum()}")
                 impute = SimpleImputer(missing_values=np.nan, strategy=self.impute_method)
                 train_dataframe = impute.fit_transform(train_dataframe)
-                test_dataframe = impute.transform(test_dataframe)
+                if test_dataframe is not None:
+                    print(f"Total null value count in test data set= {test_dataframe.isnull().values.sum()}")
+                    test_dataframe = impute.transform(test_dataframe)
 
             elif self.impute_method == "median":
                 print(f"Imputing train and test dataframe using {self.impute_method}")
+                print(f"Total null value count in train data set= {train_dataframe.isnull().values.sum()}")
                 impute = SimpleImputer(missing_values=np.nan, strategy=self.impute_method)
                 train_dataframe = impute.fit_transform(train_dataframe)
-                test_dataframe = impute.transform(test_dataframe)
+                if test_dataframe is not None:
+                    print(f"Total null value count in test data set= {test_dataframe.isnull().values.sum()}")
+                    test_dataframe = impute.transform(test_dataframe)
 
             elif self.impute_method == "most_frequent":
                 print(f"Imputing train and test dataframe using {self.impute_method}")
+                print(f"Total null value count in train data set= {train_dataframe.isnull().values.sum()}")
                 impute = SimpleImputer(missing_values=np.nan, strategy=self.impute_method)
                 train_dataframe = impute.fit_transform(train_dataframe)
-                test_dataframe = impute.transform(test_dataframe)
+                if test_dataframe is not None:
+                    print(f"Total null value count in test data set= {test_dataframe.isnull().values.sum()}")
+                    test_dataframe = impute.transform(test_dataframe)
 
             elif self.impute_method == 'drop':
-                print(f"Imputing train and test dataframe using {self.impute_method}")
-                print(f"Total null value count in train dataframe= {train_dataframe.isnull().values.sum()}")
-                print(f"Total null value count in test dataframe= {test_dataframe.isnull().values.sum()}")
-                train_dataframe = train_dataframe.dropna(axis=0).reset_index(drop=True)
-                test_dataframe = test_dataframe.dropna(axis=0).reset_index(drop=True)
+                print(f"Imputing train and test data set using {self.impute_method}")
+                print(f"Total null value count in train data set= {train_dataframe.isnull().values.sum()}")
+                train_dataframe = train_dataframe.dropna(axis=0, thresh=train_dataframe.shape[1]-self.drop_threshold).reset_index(drop=True)
+                if test_dataframe is not None:
+                    print(f"Total null value count in test data set= {test_dataframe.isnull().values.sum()}")
+                    test_dataframe = test_dataframe.dropna(axis=0, thresh=train_dataframe.shape[1]-self.drop_threshold).reset_index(drop=True)
             else:
-                raise Exception(f"imputer method {self.impute_method} not available")
-            return train_dataframe, test_dataframe
+                raise Exception(f"impute method {self.impute_method} not available")
+            if test_dataframe is not None:
+                return train_dataframe, test_dataframe
+            else:
+                return train_dataframe
         except Exception as e:
             raise e
 

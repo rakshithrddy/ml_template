@@ -25,9 +25,11 @@ def folder_paths(train_csv, test_csv, submission_csv):
     path_to_train_csv = concat(path_to_input, train_csv)
     path_to_test_csv = concat(path_to_input, test_csv)
     path_to_submission_csv = concat(path_to_input, submission_csv)
+    path_to_visualisation = string_edit('visualiation/', 0)
     return {"path_to_src": path_to_src,
             "path_to_input": path_to_input,
             "path_to_train_csv": path_to_train_csv,
             "path_to_test_csv": path_to_test_csv,
             "path_to_submission_csv": path_to_submission_csv,
-            "path_to_models": path_to_models}
+            "path_to_models": path_to_models,
+            "path_to_visualisation": path_to_visualisation}

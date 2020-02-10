@@ -2,12 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bcfd6d93-aa86-4f34-b37d-f5257cbea65c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/data_visualization.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/categorical.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/categorical.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cross_validation.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/cross_validation.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/data_preprocessing.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/data_preprocessing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data_visualization.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/data_visualization.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/dispatcher.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/dispatcher.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/feature_extractor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/feature_extractor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
@@ -89,28 +87,6 @@
     </key>
   </component>
   <component name="RunManager" selected="Python.main">
-    <configuration name="create_folds" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="ml_template" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/create_folds.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="data_preprocessing" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="ml_template" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -125,6 +101,28 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/data_preprocessing.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="data_visualization" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="ml_template" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/data_visualization.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -155,7 +153,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="train" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="ml_template" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -168,7 +166,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/test.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/train.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -202,10 +200,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.train" />
+        <item itemvalue="Python.data_visualization" />
         <item itemvalue="Python.utils" />
         <item itemvalue="Python.data_preprocessing" />
-        <item itemvalue="Python.test" />
-        <item itemvalue="Python.create_folds" />
       </list>
     </recent_temporary>
   </component>
@@ -241,7 +239,8 @@
       <workItem from="1581173418494" duration="95000" />
       <workItem from="1581173546080" duration="16711000" />
       <workItem from="1581211274646" duration="36909000" />
-      <workItem from="1581251161478" duration="25533000" />
+      <workItem from="1581251161478" duration="25559000" />
+      <workItem from="1581305620959" duration="39913000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <created>1580916614397</created>
@@ -411,7 +410,14 @@
       <option name="project" value="LOCAL" />
       <updated>1581225469971</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="reformated the code, added new models, metrics">
+      <created>1581278278708</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1581278278744</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -442,10 +448,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="reformated the code, added new models, metrics" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="-5" y="43" width="1885" height="941" key="CommitChangelistDialog2" timestamp="1581225469083">
+    <state x="-5" y="43" width="1885" height="941" key="CommitChangelistDialog2" timestamp="1581350114151">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="-5" y="43" width="1885" height="941" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1581225469083" />
+    <state x="-5" y="43" width="1885" height="941" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1581350114151" />
     <state x="161" y="69" key="DiffContextDialog" timestamp="1580917193024">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -458,22 +464,22 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="831" y="434" width="260" height="211" key="Github.ShareDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1580917043763" />
-    <state width="1877" height="359" key="GridCell.Tab.0.bottom" timestamp="1581277925948">
+    <state width="1877" height="316" key="GridCell.Tab.0.bottom" timestamp="1581349585617">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="359" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1581277925948" />
-    <state width="1877" height="359" key="GridCell.Tab.0.center" timestamp="1581277925948">
+    <state width="1877" height="316" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1581349585617" />
+    <state width="1877" height="316" key="GridCell.Tab.0.center" timestamp="1581349585617">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="359" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1581277925948" />
-    <state width="1877" height="359" key="GridCell.Tab.0.left" timestamp="1581277925948">
+    <state width="1877" height="316" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1581349585617" />
+    <state width="1877" height="316" key="GridCell.Tab.0.left" timestamp="1581349585617">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="359" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1581277925948" />
-    <state width="1877" height="359" key="GridCell.Tab.0.right" timestamp="1581277925948">
+    <state width="1877" height="316" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1581349585617" />
+    <state width="1877" height="316" key="GridCell.Tab.0.right" timestamp="1581349585617">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="359" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1581277925948" />
+    <state width="1877" height="316" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1581349585617" />
     <state width="1877" height="363" key="GridCell.Tab.1.bottom" timestamp="1581191209126">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -498,24 +504,29 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="552" y="274" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1581225485776" />
+    <state x="92" y="92" width="1736" height="896" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1581311544768">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="92" y="92" width="1736" height="896" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1581311544768" />
     <state x="769" y="458" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1581147924751">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="769" y="458" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1080@0.0.1920.1080" timestamp="1581147924751" />
-    <state x="1182" y="364" width="672" height="678" key="search.everywhere.popup" timestamp="1581012336524">
+    <state x="1182" y="364" width="672" height="678" key="search.everywhere.popup" timestamp="1581333645848">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="1182" y="364" width="672" height="678" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1581012336524" />
+    <state x="1182" y="364" width="672" height="678" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1581333645848" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ml_template$test.coverage" NAME="test Coverage Results" MODIFIED="1581241028098" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/ml_template$categorical.coverage" NAME="categorical Coverage Results" MODIFIED="1581055766686" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
-    <SUITE FILE_PATH="coverage/ml_template$train.coverage" NAME="train Coverage Results" MODIFIED="1580972530856" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/ml_template$train.coverage" NAME="train Coverage Results" MODIFIED="1581347978248" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/ml_template$data_visualization.coverage" NAME="data_visualization Coverage Results" MODIFIED="1581336391739" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/ml_template$supporter.coverage" NAME="supporter Coverage Results" MODIFIED="1581081111087" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/ml_template$cross_validation.coverage" NAME="cross_validation Coverage Results" MODIFIED="1580999303802" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/ml_template$data_preprocessing.coverage" NAME="data_preprocessing Coverage Results" MODIFIED="1581242400346" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
-    <SUITE FILE_PATH="coverage/ml_template$main.coverage" NAME="main Coverage Results" MODIFIED="1581277925937" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/ml_template$main.coverage" NAME="main Coverage Results" MODIFIED="1581349161411" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/ml_template$create_folds.coverage" NAME="create_folds Coverage Results" MODIFIED="1581182113579" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
-    <SUITE FILE_PATH="coverage/ml_template$utils.coverage" NAME="utils Coverage Results" MODIFIED="1581267915947" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/ml_template$utils.coverage" NAME="utils Coverage Results" MODIFIED="1581308293401" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
   </component>
 </project>

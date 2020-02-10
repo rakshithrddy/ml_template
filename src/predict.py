@@ -1,43 +1,36 @@
 import pandas as pd
 import numpy as np
 import json
+import joblib
 
 
-class Predicter:
-    def __init__(self, test_dataframe, classifier, cross_validation_type, submission_columns, model_name, attributes,
-                 path_to_models, n_kfolds):
+class Predictor:
+    def __init__(self, test_dataframe, cross_validation_type, submission_columns, model_name, attributes,
+                 path_to_models, classifier):
         self.test_dataframe = test_dataframe
-        print(self.test_dataframe.columns)
-        self.classifier = classifier
         self.cross_validation_type = cross_validation_type
-        self.prediction = None
         self.submission_columns = submission_columns
         self.model_name = model_name
         self.attributes = attributes
         self.path_to_models = path_to_models
-        self.n_folds = n_kfolds
+        self.classifier = classifier
 
-    def predict(self):
-        if self.cross_validation_type == 'kfold':
+    def prediction(self):
+        if self.cross_validation_type == 'train_test_split':
             test_idx = self.test_dataframe['id'].values
-            for FOLD in range(self.n_folds):
-                print(FOLD)
-                preds = self.classifier.predict_proba(self.test_dataframe)[:, 1]
-                if FOLD == 0:
-                    self.prediction = preds
+            prediction = self.classifier.predict(self.test_dataframe)
+            submission = pd.DataFrame(np.column_stack((test_idx, prediction)), columns=self.submission_columns)
+            submission.id = submission.id.astype(int)
+            submission = submission.sort_values(['id'])
+            if len(submission) < 400000:
+                inp = input('the values are less than 400000, do you want to continue. y/n')
+                if inp == 'y':
+                    submission.to_csv(f"{self.path_to_models}{self.model_name}{self.cross_validation_type}.csv", index=False)
                 else:
-                    self.prediction += preds
-            self.prediction /= 5
-            submission = pd.DataFrame(np.column_stack((test_idx, self.prediction)), columns=self.submission_columns)
-            submission.id = submission.id.astype(int)
-            submission.to_csv(f"{self.path_to_models}{self.model_name}.csv", index=False)
-        elif self.cross_validation_type == 'train_test_split':
-            test_idx = self.test_dataframe['id'].values
-            self.prediction = self.classifier.predict_proba(self.test_dataframe)[:, 1]
-            submission = pd.DataFrame(np.column_stack((test_idx, self.prediction)), columns=self.submission_columns)
-            submission.id = submission.id.astype(int)
-            submission.to_csv(f"{self.path_to_models}{self.model_name}.csv", index=False)
+                    pass
+            else:
+                submission.to_csv(f"{self.path_to_models}{self.model_name}{self.cross_validation_type}.csv", index=False)
         else:
             raise Exception
-        with open(f"{self.path_to_models}{self.model_name}_attributes.json", 'w') as fp:
+        with open(f"{self.path_to_models}{self.model_name}{self.cross_validation_type}_attributes.json", 'w') as fp:
             json.dump(self.attributes, fp)

@@ -1,4 +1,6 @@
-from sklearn import metrics
+from sklearn import metrics.
+import numpy as np
+# from sklearn.metrics import confusion_matrix, classification_report
 
 
 class Metrics:
@@ -14,7 +16,11 @@ class Metrics:
             prediction = self.classifier.predict(self.X_validate)
             roc_auc_score = metrics.roc_auc_score(self.y_validate, prediction_probability)
             confusion_matrix = metrics.confusion_matrix(self.y_validate, prediction)
-            print("################# CONFUSION MATRIX ##########################\n\n", confusion_matrix)
-            print(f"\n\nROC_AUC_SCORE = {roc_auc_score}")
+            print(metrics.classification_report(self.y_validate, prediction))
+            print("\n\n################# CONFUSION MATRIX ##########################\n\n", confusion_matrix)
+            print(f"\n\nROC_AUC_SCORE = {roc_auc_score}\n\n")
+            print('MAE (closer to 0 is better)', metrics.mean_absolute_error(self.y_validate, prediction))
+            print('MSE (closer to 0 is better)', metrics.mean_squared_error(self.y_validate, prediction))
+            print('RMSE (closer to 0 is better)', np.sqrt(metrics.mean_squared_error(self.y_validate, prediction)))
         except Exception as e:
             print(e)

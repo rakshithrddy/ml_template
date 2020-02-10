@@ -26,8 +26,8 @@ class CategoricalFeatures:
     def _label_encoding(self):
         for c in self.cat_feats:
             lbl = preprocessing.LabelEncoder()
-            lbl.fit(self.dataframe[c].values)
-            self.output_df.loc[:, c] = lbl.transform(self.dataframe[c].values)
+            lbl.fit(self.dataframe[c].values.astype(str))
+            self.output_df.loc[:, c] = lbl.transform(self.dataframe[c].values.astype(str))
             self.label_encoders[c] = lbl
         return self.output_df
 

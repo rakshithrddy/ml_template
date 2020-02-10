@@ -1,14 +1,17 @@
 from sklearn.decomposition import PCA, KernelPCA
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
+import numpy as np
+np.set_printoptions(suppress=True)
 
 
 class FeatureExtractor:
-    def __init__(self, X_train, X_validate, y_train, feature_extractor_type, n_components):
+    def __init__(self, X_train, X_validate, y_train, feature_extractor_type, n_components, test_dataset):
         self.X_train = X_train
         self.X_validate = X_validate
         self.y_train = y_train
         self.feature_extractor_type = feature_extractor_type
         self.n_components = n_components
+        self.test_dataset = test_dataset
         self.count = 0
 
     def pca(self):
@@ -20,9 +23,10 @@ class FeatureExtractor:
             pca = PCA(n_components=self.n_components, svd_solver='auto')
             self.X_train = pca.fit_transform(self.X_train)
             self.X_validate = pca.transform(self.X_validate)
+            self.test_dataset = pca.transform(self.test_dataset)
             explainted_variance = pca.explained_variance_ratio_
             if self.n_components != len(explainted_variance):
-                print(explainted_variance)
+                print(np.array(explainted_variance))
                 required_variance = float(input("Enter the variance level to consider for training from the above table,"
                                           "value but be in the same format as the above data \n"))
                 for variance in explainted_variance:
@@ -44,6 +48,7 @@ class FeatureExtractor:
         except:
             self.X_train = lda.fit_transform(self.X_train, self.y_train.values.ravel())
         self.X_validate = lda.transform(self.X_validate)
+        self.test_dataset = lda.transform(self.test_dataset)
 
     def kernalpca(self):
         """
@@ -52,18 +57,19 @@ class FeatureExtractor:
         kpca = KernelPCA(n_components=self.n_components, kernel='rbf')
         self.X_train = kpca.fit_transform(self.X_train)  # in supervised we include y_train
         self.X_validate = kpca.transform(self.X_validate)
+        self.test_dataset = kpca.transform(self.test_dataset)
 
 
     def extact(self):
         print(f'performing feature extraction using {self.feature_extractor_type} method.')
         if self.feature_extractor_type == 'pca':
             self.pca()
-            return self.X_train, self.X_validate, self.n_components
+            return self.X_train, self.X_validate, self.test_dataset, self.n_components
         elif self.feature_extractor_type == 'lda':
             self.lda()
-            return self.X_train, self.X_validate, self.n_components
+            return self.X_train, self.X_validate, self.test_dataset, self.n_components
         elif self.feature_extractor_type == 'kpca':
             self.kernalpca()
-            return self.X_train, self.X_validate, self.n_components
+            return self.X_train, self.X_validate, self.test_dataset, self.n_components
         else:
             raise Exception(f'feature extractor type {self.feature_extractor_type} not found')
