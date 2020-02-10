@@ -1,6 +1,5 @@
-from sklearn import metrics.
+from sklearn import metrics
 import numpy as np
-# from sklearn.metrics import confusion_matrix, classification_report
 
 
 class Metrics:
